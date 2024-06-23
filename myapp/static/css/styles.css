@@ -1,0 +1,223 @@
+/* static/css/styles.css */
+nav {
+    border-bottom: 1px solid #ccc; /* Add a border below the header */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+/* Default Light Mode Styles */
+body.light-mode h1 {
+    color: #6d0a9f; /* Black color for h1 in light mode */
+    text-align: center;
+    font-weight: 700;
+    font-family: 'Kalam', cursive;
+    font-size: 3em;
+}
+
+/* Styles for Dark Mode */
+body.dark-mode h1 {
+    color: #ffffff; /* White color for h1 in dark mode */
+    text-align: center;
+    font-weight: 700;
+    font-family: 'Kalam', cursive;
+    font-size: 3em;
+}
+
+
+form {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto 0 auto;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+audio {
+    display: block;
+    margin: 20px auto;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+}
+
+/* Text area inside form */
+.form-control textarea {
+    width: 100%; /* Ensure the textarea fills the width of the form */
+    min-height: 100px; /* Adjust the minimum height of the textarea */
+}
+
+/* Choice fields inside form */
+.form-control select {
+    width: 100%; /* Ensure choice fields fill the width of the form */
+}
+
+.nav-item {
+    margin-right: 20px;
+    /* Increase space between navbar items */
+}
+
+/* Default Light Mode Styles */
+body.light-mode {
+    background-color: #ffffff;
+    /* Light mode background */
+    color: #000000;
+    /* Light mode text color */
+}
+
+.navbar-light {
+    background-color: #f8f9fa;
+    /* Light navbar background */
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #9370DB;
+    /* Light purple for navbar links */
+}
+
+/* Styles for Dark Mode */
+body.dark-mode {
+    background-color: #000000e0;
+    /* Dark mode background */
+    color: #ffffff;
+    /* Dark mode text color */
+}
+
+.navbar-dark {
+    background-color: #111010dc;
+    /* Dark navbar background */
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #e0e0e0;
+    /* Light gray for navbar links */
+}
+
+/* Adjusted spacing between navbar items */
+.nav-item {
+    margin-right: 20px;
+    /* Increase space between navbar items */
+}
+
+/* Dark mode specific styles for form */
+body.dark-mode form {
+    background-color: #1a1a1a; /* Dark background color */
+    border: 1px solid #555; /* Simple border */
+}
+
+/* Dark mode specific styles for textarea */
+body.dark-mode .form-control textarea {
+    background-color: #333; /* Dark background color for textarea */
+    color: #fff; /* Text color for textarea in dark mode */
+}
+
+/* Dark mode specific styles for choice fields */
+body.dark-mode .form-control select {
+    background-color: #333; /* Dark background color for choice fields */
+    color: #fff; /* Text color for choice fields in dark mode */
+}
+
+/* Footer styles */
+.footer {
+    padding: 20px;
+    /* Padding for spacing */
+    background-color: #f8f9fa;
+    /* Default light mode background */
+}
+
+body.dark-mode .footer {
+    background-color: #000000;
+    /* Darker footer for dark mode */
+}
+
+.footer a {
+    color: #9370DB;
+    /* Light purple for links */
+}
+
+body.dark-mode .footer a {
+    color: #d0d0d0;
+    /* Light gray for links in dark mode */
+}
+
+.footer a:hover {
+    text-decoration: underline;
+    /* Add underline on hover */
+}
+
+
+/* Add this CSS rule to change the background color of .form-control in dark mode */
+body.dark-mode .form-control {
+    background-color: #000; /* Change to black in dark mode */
+    color: #fff; /* Set text color to white in dark mode */
+}
+
+/* Add this CSS rule to override the background color for textarea in dark mode */
+body.dark-mode .form-control textarea {
+    background-color: #000; /* Change to black in dark mode */
+    color: #fff; /* Set text color to white in dark mode */
+}
+
+.container {
+    padding-top: 50px;
+    /* Adjust padding to ensure content is centered */
+}
+
+.about-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    /* margin-top: 40px; */
+}
+
+h4{
+    margin-top: 50px;
+    color: #050505;
+}
+body.dark-mode h4{
+    margin-top: 50px;
+    color: #fff;
+}
+
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 auto; /* Add this line to center the container */
+}
+
+.image-container img {
+    max-width: 300px;  /* Set the maximum width */
+    max-height: 300px; /* Set the maximum height */
+    margin: 0 auto; /* Add this line to center the image */
+}

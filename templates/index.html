@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text-to-Image</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    {% load static %}
+    <link rel="icon" type="image/png" href="{% static 'logo.png' %}">
+</head>
+
+<body class="light-mode">
+    {% include 'header.html' %}
+
+    <!-- Your main content goes here -->
+    <div class="container content">
+        <h1>Convert Text to Image</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div>
+                {{ form.prompt.label_tag }}
+                {{ form.prompt }}
+            </div>
+            <div>
+                {{ form.aspect_ratio.label_tag }}
+                {{ form.aspect_ratio }}
+            </div>
+            <button type="submit">Convert</button>
+        </form>
+        {% if image_url %}
+
+        <!-- <h2 style="text-align: center; font-family: 'Kalam', cursive;">Generated Image:</h2>
+        <img src="{{ image_url }}" alt="Generated Image" style="width: 300px; height: 300px; display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;">
+        <a href="{{ image_url }}" download="{{ image_filename }}" style="text-decoration: none;"><button>Download
+                Image</button></a> -->
+        <div class="image-container">
+            <h2 style="text-align: center; font-family: 'Kalam', cursive;">Generated Image:</h2>
+            <div style="text-align: center;">
+                <img src="{{ image_url }}" alt="Generated Image" style="width: 300px; height: 300px;">
+                <a href="{{ image_url }}" download="{{ image_filename }}"
+                    style="text-decoration: none;"><button>Download Image</button></a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    {% include 'footer.html' %}
+
+    <!-- Bootstrap JS and jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        crossorigin="anonymous"></script>
+    <script>
+        // toggle-mode.js
+
+        const toggleModeButton = document.getElementById("toggle-mode");
+        const modeIcon = document.getElementById("mode-icon");
+
+        toggleModeButton.addEventListener("click", function () {
+            const body = document.body;
+            const navbar = document.querySelector("nav.navbar");
+
+            if (body.classList.contains("light-mode")) {
+                body.classList.remove("light-mode");
+                body.classList.add("dark-mode");
+                navbar.classList.remove("navbar-light");
+                navbar.classList.add("navbar-dark");
+
+                modeIcon.src = "static/moon.png";  // Change to moon icon for dark mode
+            } else {
+                body.classList.remove("dark-mode");
+                body.classList.add("light-mode");
+                navbar.classList.remove("navbar-dark");
+                navbar.classList.add("navbar-light");
+
+                modeIcon.src = "static/sun.png";  // Change to sun icon for light mode
+            }
+
+            // Save the mode in local storage
+            localStorage.setItem("theme", body.classList.contains("light-mode") ? "light-mode" : "dark-mode");
+        });
+
+        window.onload = function () {
+            const theme = localStorage.getItem("theme");
+            const navbar = document.querySelector("nav.navbar");
+            const modeIcon = document.getElementById("mode-icon");
+
+            if (theme) {
+                document.body.classList.remove("light-mode", "dark-mode");
+                document.body.classList.add(theme);
+
+                if (theme === "light-mode") {
+                    navbar.classList.remove("navbar-dark");
+                    navbar.classList.add("navbar-light");
+                    modeIcon.src = "static/sun.png";  // Default to sun for light mode<a href="https://www.flaticon.com/free-icons/sun" title="sun icons">Sun icons created by Freepik - Flaticon</a>
+                } else {
+                    navbar.classList.remove("navbar-light");
+                    navbar.classList.add("navbar-dark");
+                    modeIcon.src = "static/moon.png";  // Default to moon for dark mode <a href="https://www.flaticon.com/free-icons/moon" title="moon icons">Moon icons created by Freepik - Flaticon</a>
+                }
+            }
+        };
+    </script>
+</body>
+
+</html>

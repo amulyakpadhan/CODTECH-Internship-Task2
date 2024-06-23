@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text-to-Speech</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    {% load static %}
+    <link rel="icon" type="image/png" href="{% static 'logo.png' %}">
+</head>
+
+<body class="light-mode">
+    {% include 'header.html' %}
+
+    <!-- Your main content goes here -->
+    <div class="container about-container">
+        <h2 style="text-align: center; padding-bottom: 10px;">About Us</h2>
+        <p style="text-align: center;">Welcome to the Text-to-Speech Conversion Application!</p>
+    
+        <h4>Our Mission</h4>
+        <p>Our mission is to provide a convenient and efficient solution for converting text into speech in various languages, catering to diverse user needs.</p>
+    
+        <h4>About the Project</h4>
+        <p>This project is a part of a one-month online internship program where participants were tasked with developing innovative applications to address real-world challenges. The Text-to-Speech Conversion Application was conceptualized and developed as a solution to provide users with a simple yet powerful tool for converting text into speech.</p>
+    
+        <h4>Technology Used</h4>
+        <p>The application utilizes the Text-to-Speech (TTS) API provided by Voice RSS, a leading provider of text-to-speech solutions. Leveraging this API, our application offers seamless conversion of text into speech in multiple languages, enhancing accessibility and user experience.</p>
+    
+        <h4>Our Team</h4>
+        <p>This project was developed by a team of passionate individuals dedicated to creating impactful solutions. Our team consists of motivated developers with a shared vision of leveraging technology to make a difference.</p>
+    
+        <h4>Contact Us</h4>
+        <p>Have questions or feedback? We'd love to hear from you! Feel free to reach out to us at <a href="mailto:contact@example.com">contact@example.com</a> for any inquiries or suggestions.</p>
+    
+        <p>Thank you for using our Text-to-Speech Conversion Application!</p>
+    </div>
+    
+
+
+    {% include 'footer.html' %}
+
+    <!-- Bootstrap JS and jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        crossorigin="anonymous"></script>
+    <script>
+        // toggle-mode.js
+
+        const moonPath = "{% static 'moon.png' %}";  // Correct path for moon icon
+        const sunPath = "{% static 'sun.png' %}";   // Correct path for sun icon
+        const toggleModeButton = document.getElementById("toggle-mode");
+        const modeIcon = document.getElementById("mode-icon");
+
+        toggleModeButton.addEventListener("click", function () {
+            const body = document.body;
+            const navbar = document.querySelector("nav.navbar");
+
+            if (body.classList.contains("light-mode")) {
+                body.classList.remove("light-mode");
+                body.classList.add("dark-mode");
+                navbar.classList.remove("navbar-light");
+                navbar.classList.add("navbar-dark");
+
+                modeIcon.src = moonPath;  // Change to moon icon for dark mode
+            } else {
+                body.classList.remove("dark-mode");
+                body.classList.add("light-mode");
+                navbar.classList.remove("navbar-dark");
+                navbar.classList.add("navbar-light");
+
+                modeIcon.src = sunPath;  // Change to sun icon for light mode
+            }
+
+            // Save the mode in local storage
+            localStorage.setItem("theme", body.classList.contains("light-mode") ? "light-mode" : "dark-mode");
+        });
+
+        window.onload = function () {
+            const theme = localStorage.getItem("theme");
+            const navbar = document.querySelector("nav.navbar");
+            const modeIcon = document.getElementById("mode-icon");
+
+            if (theme) {
+                document.body.classList.remove("light-mode", "dark-mode");
+                document.body.classList.add(theme);
+
+                if (theme === "light-mode") {
+                    navbar.classList.remove("navbar-dark");
+                    navbar.classList.add("navbar-light");
+                    modeIcon.src = sunPath;  // Default to sun for light mode<a href="https://www.flaticon.com/free-icons/sun" title="sun icons">Sun icons created by Freepik - Flaticon</a>
+                } else {
+                    navbar.classList.remove("navbar-light");
+                    navbar.classList.add("navbar-dark");
+                    modeIcon.src = moonPath;  // Default to moon for dark mode <a href="https://www.flaticon.com/free-icons/moon" title="moon icons">Moon icons created by Freepik - Flaticon</a>
+                }
+            }
+        };
+    </script>
+</body>
+
+</html>
