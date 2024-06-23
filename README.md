@@ -9,7 +9,7 @@ Duration: June 1st to June 30th
 This project aims to develop a text-to-image generation application that transforms textual descriptions into visual representations using generative model ML API. The application provides users with the capability to input descriptive text and generate corresponding images, leveraging advancements in machine learning techniques.
 
 ## Live Demo
-The project is deployed and can be accessed at: [Text-to-Speech Converter](https://ttsconverter.pythonanywhere.com/)
+The project is deployed and can be accessed at: [Text-to-Image Converter](https://ttsconverter.pythonanywhere.com/)
 
 
 ## Features
