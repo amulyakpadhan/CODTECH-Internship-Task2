@@ -7,28 +7,44 @@ from django.core.files.base import ContentFile
 from django.conf import settings
 from .forms import ImageGenerationForm
 import os
+from diffusers import StableDiffusionPipeline
+import torch
+from PIL import Image
+import io
+
+# Load the Stable Diffusion model
+device = "cuda"
+seed = 42
+generator = torch.Generator(device).manual_seed(seed)
+num_steps = 35
+model_id = "stabilityai/stable-diffusion-2"
+output_size = (400, 400)
+guidance_scale = 9
+auth_token = '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'
+
+diffusion_model = StableDiffusionPipeline.from_pretrained(
+    model_id, torch_dtype=torch.float16,
+    revision="fp16", use_auth_token=auth_token, guidance_scale=guidance_scale
+)
+diffusion_model = diffusion_model.to(device)
 
 def generate_image(prompt, aspect_ratio):
-    url = settings.URL
-    payload = {
-        "prompt": prompt,
-        "aspect_ratio": aspect_ratio
-    }
-    headers = {
-        "Content-Type": "application/json",
-        "X-Api-Version": "v1",
-        "Accept": "image/png",
-        "Authorization": settings.API_KEYS
-    }
-    
     try:
-        response = requests.post(url, json=payload, headers=headers)
-        response.raise_for_status()
-        image = Image.open(BytesIO(response.content))
-        return image
-    except requests.exceptions.RequestException as e:
+        # Generate image from text prompt using the local diffusion model
+        generated_image = diffusion_model(
+            prompt, num_inference_steps=num_steps,
+            generator=generator,
+            guidance_scale=guidance_scale
+        ).images[0]
+
+        # Resize the generated image
+        generated_image = generated_image.resize(output_size)
+        
+        return generated_image
+    except Exception as e:
         print(f"Error generating image: {e}")
         return None
+
 
 def index(request):
     if request.method == 'POST':
