@@ -1,7 +1,5 @@
 import requests
 import datetime
-from io import BytesIO
-from PIL import Image
 from django.shortcuts import render
 from django.core.files.base import ContentFile
 from django.conf import settings
@@ -9,8 +7,6 @@ from .forms import ImageGenerationForm
 import os
 from diffusers import StableDiffusionPipeline
 import torch
-from PIL import Image
-import io
 
 # Load the Stable Diffusion model
 device = "cuda"
@@ -28,8 +24,19 @@ diffusion_model = StableDiffusionPipeline.from_pretrained(
 )
 diffusion_model = diffusion_model.to(device)
 
+def calculate_output_size(aspect_ratio, base_width):
+    try:
+        width_ratio, height_ratio = map(int, aspect_ratio.split(':'))
+        height = int(base_width * (height_ratio / width_ratio))
+        return (base_width, height)
+    except Exception as e:
+        print(f"Error calculating output size: {e}")
+        return (base_width, base_width)  # Fallback to a square size if there's an error
+
 def generate_image(prompt, aspect_ratio):
     try:
+        output_size = calculate_output_size(aspect_ratio, 400)
+
         # Generate image from text prompt using the local diffusion model
         generated_image = diffusion_model(
             prompt, num_inference_steps=num_steps,
@@ -66,8 +73,8 @@ def index(request):
     
     return render(request, 'index.html', {'form': form})
 
-def cleanup_old_audio_files():
-    # Define the threshold for old audio files (e.g., files older than 7 days)
+def cleanup_old_image_files():
+    # Define the threshold for old image files (e.g., files older than 7 days)
     threshold_date = datetime.datetime.now() - datetime.timedelta(days=7)
 
     # Iterate over the files in the media folder
@@ -81,12 +88,12 @@ def cleanup_old_audio_files():
                 # Delete the file
                 os.remove(file_path)
 
-def schedule_audio_cleanup():
+def schedule_image_cleanup():
     # Schedule the cleanup task to run periodically (e.g., daily)
-    cleanup_old_audio_files()
+    cleanup_old_image_files()
 
-# Call the schedule_audio_cleanup function when this module is imported
-schedule_audio_cleanup()
+# Call the schedule_image_cleanup function when this module is imported
+schedule_image_cleanup()
 
 def about(request):
     return render(request, 'about.html')
